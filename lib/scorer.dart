@@ -43,6 +43,33 @@ class _PingPongScorerState extends State<PingPongScorer>
     return Scaffold(
       appBar: AppBar(
         title: Text("Ping Pong Scorer")),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text("Navigation"),
+              decoration: BoxDecoration(
+                color: Colors.grey
+              ),
+            ),
+            ListTile(
+              title: Text("Scorer"),
+              onTap: () {
+                // Navigate to home
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: Text("Overall Ranking"),
+              onTap: () {
+                // Navigate to new page
+                Navigator.pop(context);
+              }
+            ),
+          ],
+        )
+      ),
       body: Column(
         children: [
           Expanded(
