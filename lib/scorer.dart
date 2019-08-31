@@ -22,10 +22,28 @@ class _PingPongScorerState extends State<PingPongScorer>
     });
   }
 
+  void _decrementTeamOneCounter()
+  {
+    setState(() {
+      if (_teamOneCounter == 0)
+        return;
+      _teamOneCounter--;
+    });
+  }
+
   void _incrementTeamTwoCounter()
   {
     setState(() {
       _teamTwoCounter++;
+    });
+  }
+
+  void _decrementTeamTwoCounter()
+  {
+    setState(() {
+      if (_teamTwoCounter == 0)
+        return;
+      _teamTwoCounter--;
     });
   }
 
@@ -50,7 +68,7 @@ class _PingPongScorerState extends State<PingPongScorer>
             DrawerHeader(
               child: Text("Navigation"),
               decoration: BoxDecoration(
-                color: Colors.grey
+                color: Colors.blue
               ),
             ),
             ListTile(
@@ -84,11 +102,12 @@ class _PingPongScorerState extends State<PingPongScorer>
                       child: Text('$_teamOneCounter',
                         style: Theme.of(context).textTheme.display1,
                       ),
-                    )
+                    ),
                   ],
                 )
               ),
-              onTap: _incrementTeamOneCounter
+              onTap: _incrementTeamOneCounter,
+              onDoubleTap: _decrementTeamOneCounter,
             )
           ),
           Expanded(
@@ -104,7 +123,8 @@ class _PingPongScorerState extends State<PingPongScorer>
                   ],
                 )
               ),
-              onTap: _incrementTeamTwoCounter
+              onTap: _incrementTeamTwoCounter,
+              onDoubleTap: _decrementTeamTwoCounter,
             )
           )
         ]
