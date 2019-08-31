@@ -79,8 +79,11 @@ class _PingPongScorerState extends State<PingPongScorer>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('$_teamOneCounter',
-                    style: Theme.of(context).textTheme.display1
+                    RotatedBox(
+                      quarterTurns: 2,
+                      child: Text('$_teamOneCounter',
+                        style: Theme.of(context).textTheme.display1,
+                      ),
                     )
                   ],
                 )
@@ -111,6 +114,7 @@ class _PingPongScorerState extends State<PingPongScorer>
         label: Text("Reset"),
         icon: Icon(Icons.replay),
         backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       )
     );
   }

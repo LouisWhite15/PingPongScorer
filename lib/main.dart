@@ -9,7 +9,7 @@ class PingPongScorerMain extends StatelessWidget {
     return MaterialApp(
       title: 'Ping Pong Scorer',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blue,
       ),
       home: PingPongScorer(title: 'Ping Pong Scorer Home Page'),
     );
