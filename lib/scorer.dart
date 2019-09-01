@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:PingPongScorer/drawer.dart';
 
 class PingPongScorer extends StatefulWidget {
   PingPongScorer({Key key, this.title}) : super(key: key);
@@ -61,33 +62,7 @@ class _PingPongScorerState extends State<PingPongScorer>
     return Scaffold(
       appBar: AppBar(
         title: Text("Ping Pong Scorer")),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text("Navigation"),
-              decoration: BoxDecoration(
-                color: Colors.blue
-              ),
-            ),
-            ListTile(
-              title: Text("Scorer"),
-              onTap: () {
-                // Navigate to home
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: Text("Overall Ranking"),
-              onTap: () {
-                // Navigate to new page
-                Navigator.pop(context);
-              }
-            ),
-          ],
-        )
-      ),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -99,7 +74,8 @@ class _PingPongScorerState extends State<PingPongScorer>
                   children: <Widget>[
                     RotatedBox(
                       quarterTurns: 2,
-                      child: Text('$_teamOneCounter',
+                      child: 
+                      Text('$_teamOneCounter',
                         style: Theme.of(context).textTheme.display1,
                       ),
                     ),
@@ -118,7 +94,7 @@ class _PingPongScorerState extends State<PingPongScorer>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('$_teamTwoCounter',
-                    style: Theme.of(context).textTheme.display1
+                      style: Theme.of(context).textTheme.display1
                     )
                   ],
                 )
