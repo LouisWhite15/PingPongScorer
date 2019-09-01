@@ -30,12 +30,12 @@ class CustomDrawer extends StatelessWidget
               }
             ),
             ListTile(
+              enabled: false,
               leading: Icon(Icons.error_outline),
               title: Text("Overall Ranking *COMING SOON*",
                 style: Theme.of(context).textTheme.title
               ),
               onTap: () {
-                // Navigate to new page
                 Navigator.pop(context);
               }
             ),
