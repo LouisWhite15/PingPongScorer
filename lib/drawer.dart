@@ -1,3 +1,4 @@
+import 'package:PingPongScorer/ranking.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:PingPongScorer/help.dart';
@@ -30,13 +31,12 @@ class CustomDrawer extends StatelessWidget
               }
             ),
             ListTile(
-              enabled: false,
               leading: Icon(Icons.error_outline),
-              title: Text("Overall Ranking *COMING SOON*",
+              title: Text("Overall Ranking",
                 style: Theme.of(context).textTheme.title
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Ranking()));
               }
             ),
             ListTile(

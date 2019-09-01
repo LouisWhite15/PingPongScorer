@@ -3,6 +3,9 @@ import 'package:PingPongScorer/drawer.dart';
 
 class HelpPage extends StatelessWidget
 {
+  final _scorerHelp = """To add to the score of a team, simply tap on the corresponding side of device to add a point to the relevant team.\n
+To reduce the score in case of an accident, double tap the space to reduce the score of the relevant team.""";
+  
   @override
   Widget build(BuildContext context)
   {
@@ -31,7 +34,8 @@ class HelpPage extends StatelessWidget
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget> [
                 Flexible(
-                  child: Text("To add to the score of a team, simply tap on the corresponding side of device to add a point to the relevant team.\n\nTo reduce the score in case of an accident, double tap the space to reduce the score of the relevant team.",
+                  child: Text(
+                    _scorerHelp,
                     style: Theme.of(context).textTheme.body1,
                   )
                 )
