@@ -21,16 +21,17 @@ class CustomDrawer extends StatelessWidget
               ),
             ),
             ListTile(
+              leading: Icon(Icons.exposure),
               title: Text("Scorer",
                 style: Theme.of(context).textTheme.title
-                ),
+              ),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => PingPongScorer()));
-                Navigator.pop(context);
               }
             ),
             ListTile(
-              title: Text("Overall Ranking",
+              leading: Icon(Icons.error_outline),
+              title: Text("Overall Ranking *COMING SOON*",
                 style: Theme.of(context).textTheme.title
               ),
               onTap: () {
@@ -39,12 +40,12 @@ class CustomDrawer extends StatelessWidget
               }
             ),
             ListTile(
+              leading: Icon(Icons.help_outline),
               title: Text("Help",
                 style: Theme.of(context).textTheme.title
               ),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => HelpPage()));
-                Navigator.pop(context);
               }
             ),
           ],
