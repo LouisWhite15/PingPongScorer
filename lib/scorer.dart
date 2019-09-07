@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:PingPongScorer/drawer.dart';
+import 'package:swipedetector/swipedetector.dart';
 
 class PingPongScorer extends StatefulWidget {
   PingPongScorer({Key key, this.title}) : super(key: key);
@@ -67,40 +68,46 @@ class _PingPongScorerState extends State<PingPongScorer>
         children: [
           Expanded(
             child: InkWell(
-              child: Container(
-                color: Colors.blue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RotatedBox(
-                      quarterTurns: 2,
-                      child: 
-                      Text('$_teamOneCounter',
-                        style: Theme.of(context).textTheme.display1,
+              child: SwipeDetector(
+                child: Container(
+                  color: Colors.blue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RotatedBox(
+                        quarterTurns: 2,
+                        child: 
+                        Text('$_teamOneCounter',
+                          style: Theme.of(context).textTheme.display1,
+                        ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  )
+                ),
+                onSwipeLeft: _incrementTeamOneCounter,
+                onSwipeRight: _decrementTeamOneCounter,
               ),
               onTap: _incrementTeamOneCounter,
-              onDoubleTap: _decrementTeamOneCounter,
             )
           ),
           Expanded(
             child: InkWell(
-              child: Container(
-                color: Colors.red,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('$_teamTwoCounter',
-                      style: Theme.of(context).textTheme.display1
-                    )
-                  ],
-                )
+              child: SwipeDetector(
+                child: Container(
+                  color: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('$_teamTwoCounter',
+                        style: Theme.of(context).textTheme.display1
+                      )
+                    ],
+                  )
+                ),
+                onSwipeLeft: _decrementTeamTwoCounter,
+                onSwipeRight: _incrementTeamTwoCounter,
               ),
               onTap: _incrementTeamTwoCounter,
-              onDoubleTap: _decrementTeamTwoCounter,
             )
           )
         ]
