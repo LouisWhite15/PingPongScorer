@@ -13,13 +13,7 @@ class Ranking extends StatefulWidget {
 
 class _RankingState extends State<Ranking> 
 {
-  String _playerOneName = "Tap here to set name";
   int _playerOne;
-
-  void setPlayerName(String name)
-  {
-    _playerOneName = name;
-  }
 
   void _incrementPlayerOne()
   {
@@ -50,9 +44,25 @@ class _RankingState extends State<Ranking>
             padding: EdgeInsets.all(13.0),
             child: Row(
               children: <Widget>[
-                Text("Player One: ",
-                  style: Theme.of(context).textTheme.title
-                )
+                Flexible(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Player One", 
+                      style: Theme.of(context).textTheme.body1,
+                    )
+                  )
+                ),
+                Flexible(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter name"
+                      ),
+                    )
+                  )
+                ),
               ],
             ),
           )
