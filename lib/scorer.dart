@@ -78,7 +78,7 @@ class _PingPongScorerState extends State<PingPongScorer>
                         quarterTurns: 2,
                         child: 
                         Text('$_teamOneCounter',
-                          style: Theme.of(context).textTheme.display1,
+                          style: Theme.of(context).textTheme.display3,
                         ),
                       ),
                     ],
@@ -99,7 +99,7 @@ class _PingPongScorerState extends State<PingPongScorer>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text('$_teamTwoCounter',
-                        style: Theme.of(context).textTheme.display1
+                        style: Theme.of(context).textTheme.display3
                       )
                     ],
                   )

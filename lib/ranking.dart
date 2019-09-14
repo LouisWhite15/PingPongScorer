@@ -13,7 +13,7 @@ class Ranking extends StatefulWidget {
 
 class _RankingState extends State<Ranking> 
 {
-  int _playerOne;
+  int _playerOne = 0;
 
   void _incrementPlayerOne()
   {
@@ -31,6 +31,13 @@ class _RankingState extends State<Ranking>
     });
   }
 
+  void _reset()
+  {
+    setState(() {
+      _playerOne = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -45,28 +52,35 @@ class _RankingState extends State<Ranking>
             child: Row(
               children: <Widget>[
                 Flexible(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Player One", 
-                      style: Theme.of(context).textTheme.body1,
-                    )
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter name"
+                    ),
                   )
                 ),
-                Flexible(
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Enter name"
-                      ),
-                    )
-                  )
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: _decrementPlayerOne
                 ),
+                Text('$_playerOne',
+                  style: Theme.of(context).textTheme.headline,
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: _incrementPlayerOne
+                )
               ],
             ),
-          )
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _reset,
+        label: Text("Reset"),
+        icon: Icon(Icons.replay),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       )
     );
   }
