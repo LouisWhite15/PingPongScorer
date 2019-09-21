@@ -41,11 +41,6 @@ class _RankingState extends State<Ranking>
     });
   }
 
-  void _addPlayer()
-  {
-
-  }
-
   @override
   Widget build(BuildContext context)
   {
