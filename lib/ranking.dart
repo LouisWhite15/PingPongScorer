@@ -13,29 +13,37 @@ class Ranking extends StatefulWidget {
 
 class _RankingState extends State<Ranking> 
 {
-  int _playerOne = 0;
+  var _playerScores = [0, 0];
 
-  void _incrementPlayerOne()
+  void _incrementPlayer(int index)
   {
     setState(() {
-      _playerOne++;
+      _playerScores[index]++;
     });
   }
 
-  void _decrementPlayerOne()
+  void _decrementPlayer(int index)
   {
     setState(() {
-      if (_playerOne == 0)
+      if (_playerScores[index] == 0)
         return;
-      _playerOne--;
+      _playerScores[index]--;
     });
   }
 
   void _reset()
   {
     setState(() {
-      _playerOne = 0;
+      for(var i = 0; i < _playerScores.length; i++)
+      {
+        _playerScores[i] = 0;
+      }
     });
+  }
+
+  void _addPlayer()
+  {
+
   }
 
   @override
@@ -61,18 +69,45 @@ class _RankingState extends State<Ranking>
                 ),
                 IconButton(
                   icon: Icon(Icons.remove),
-                  onPressed: _decrementPlayerOne
+                  onPressed: () => _decrementPlayer(0)
                 ),
-                Text('$_playerOne',
+                Text(_playerScores[0].toString(),
                   style: Theme.of(context).textTheme.headline,
                 ),
                 IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: _incrementPlayerOne
+                  onPressed: () => _incrementPlayer(0)
                 )
               ],
             ),
           ),
+          Container(
+            padding: EdgeInsets.all(13.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter name"
+                    ),
+                  )
+                ),
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () => _decrementPlayer(1)
+                ),
+                Text(_playerScores[1].toString(),
+                  style: Theme.of(context).textTheme.headline,
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => _incrementPlayer(1)
+                )
+              ],
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
