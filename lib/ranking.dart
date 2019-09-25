@@ -94,7 +94,7 @@ class _RankingState extends State<Ranking>
                   icon: Icon(Icons.remove),
                   onPressed: () => _decrementPlayer(0)
                 ),
-                Text((_playerScores[0].toString()),
+                Text(_playerScores[0].toString(),
                   style: Theme.of(context).textTheme.headline,
                 ),
                 IconButton(
