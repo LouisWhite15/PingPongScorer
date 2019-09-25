@@ -1,6 +1,7 @@
 import 'package:PingPongScorer/drawer.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Ranking extends StatefulWidget {
   Ranking({Key key, this.title}) : super(key: key);
@@ -13,7 +14,7 @@ class Ranking extends StatefulWidget {
 
 class _RankingState extends State<Ranking> 
 {
-  var _playerScores = [0, 0];
+  var _playerScores = [0, 0, 0];
 
   void _incrementPlayer(int index)
   {
@@ -50,6 +51,21 @@ class _RankingState extends State<Ranking>
       drawer: CustomDrawer(),
       body: Column(
         children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(13.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("Player name",
+                  style: Theme.of(context).textTheme.title
+                ),
+                Spacer(),
+                Text("Games won",
+                  style: Theme.of(context).textTheme.title
+                )
+              ],
+            ),
+          ),
           Container(
             padding: EdgeInsets.all(13.0),
             child: Row(
@@ -99,6 +115,33 @@ class _RankingState extends State<Ranking>
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () => _incrementPlayer(1)
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(13.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter name"
+                    ),
+                  )
+                ),
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () => _decrementPlayer(2)
+                ),
+                Text(_playerScores[2].toString(),
+                  style: Theme.of(context).textTheme.headline,
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => _incrementPlayer(2)
                 )
               ],
             ),

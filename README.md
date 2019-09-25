@@ -3,9 +3,9 @@
 App that can be used to track the scores of Table Tennis games
 
 # TODO
-- Save data on Ranking page to the device
-- Make the Ranking and Help pages look nicer
-- Add a settings page where you can modify theme etc.
+- [] Save data on Ranking page to the device
+- [] Make the Ranking and Help pages look nicer
+- [] Add a settings page where you can modify theme etc.
 
 # Screenshots
 
