@@ -42,6 +42,18 @@ class _RankingState extends State<Ranking>
     });
   }
 
+  _read(String key) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
+
+  _save(String key, value) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -82,7 +94,7 @@ class _RankingState extends State<Ranking>
                   icon: Icon(Icons.remove),
                   onPressed: () => _decrementPlayer(0)
                 ),
-                Text(_playerScores[0].toString(),
+                Text((_playerScores[0].toString()),
                   style: Theme.of(context).textTheme.headline,
                 ),
                 IconButton(
