@@ -14,159 +14,134 @@ class Ranking extends StatefulWidget {
 
 class _RankingState extends State<Ranking> 
 {
-  var _playerScores = [0, 0, 0];
+  SharedPreferences _prefs;
+  int _playerOneScore = 0;
 
-  void _incrementPlayer(int index)
+  void _incrementPlayerOne()
   {
     setState(() {
-      _playerScores[index]++;
+      _playerOneScore++;
+      return _playerOneScore;
     });
   }
 
-  void _decrementPlayer(int index)
+  void _decrementPlayerOne()
   {
     setState(() {
-      if (_playerScores[index] == 0)
-        return;
-      _playerScores[index]--;
+      if (_playerOneScore == 0)
+        return _playerOneScore;
+      _playerOneScore--;
+      return _playerOneScore;
     });
   }
 
   void _reset()
   {
     setState(() {
-      for(var i = 0; i < _playerScores.length; i++)
-      {
-        _playerScores[i] = 0;
-      }
+      _playerOneScore = 0;
+      _save("_playerOneScore", _playerOneScore);
     });
   }
 
-  _read(String key) async
+  int _read(String key)
   {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key);
+    return _prefs.getInt(key);
   }
 
-  _save(String key, value) async
+  _save(String key, value)
   {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setInt(key, value);
+    _prefs.setInt(key, value);
+  }
+
+  @override
+  void initState()
+  {
+    super.initState();
+    asyncInitState();
+  }
+
+  Future asyncInitState() async {
+    _prefs = await SharedPreferences.getInstance();
+    _playerOneScore = _read("_playerOneScore");
   }
 
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Overall Ranking")),
-      drawer: CustomDrawer(),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(13.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Player name",
-                  style: Theme.of(context).textTheme.title
-                ),
-                Spacer(),
-                Text("Games won",
-                  style: Theme.of(context).textTheme.title
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(13.0),
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Enter name"
+    return FutureBuilder(
+      future: asyncInitState(),
+      builder: (BuildContext context, AsyncSnapshot snapshot)
+      {
+        if (snapshot.connectionState != ConnectionState.done)
+        {
+          // no op
+          // This is here so that the players values appear when you load the page
+          // There may be other ways to do this
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Overall Ranking")),
+          drawer: CustomDrawer(),
+          body: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(13.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Player name",
+                      style: Theme.of(context).textTheme.title
                     ),
-                  )
+                    Spacer(),
+                    Text("Games won",
+                      style: Theme.of(context).textTheme.title
+                    )
+                  ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () => _decrementPlayer(0)
-                ),
-                Text(_playerScores[0].toString(),
-                  style: Theme.of(context).textTheme.headline,
-                ),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => _incrementPlayer(0)
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(13.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Enter name"
+              ),
+              Container(
+                padding: EdgeInsets.all(13.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Enter name"
+                        ),
+                      )
                     ),
-                  )
-                ),
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () => _decrementPlayer(1)
-                ),
-                Text(_playerScores[1].toString(),
-                  style: Theme.of(context).textTheme.headline,
-                ),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => _incrementPlayer(1)
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(13.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Enter name"
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () { 
+                        _decrementPlayerOne();
+                        _save("_playerOneScore", _playerOneScore);
+                      }
                     ),
-                  )
+                    Text(_playerOneScore.toString(),
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        _incrementPlayerOne();
+                        _save("_playerOneScore", _playerOneScore);
+                      }
+                    )
+                  ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () => _decrementPlayer(2)
-                ),
-                Text(_playerScores[2].toString(),
-                  style: Theme.of(context).textTheme.headline,
-                ),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => _incrementPlayer(2)
-                )
-              ],
-            ),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: _reset,
+            label: Text("Reset"),
+            icon: Icon(Icons.replay),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
           )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _reset,
-        label: Text("Reset"),
-        icon: Icon(Icons.replay),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      )
+        );
+      }
     );
   }
 }
