@@ -15,13 +15,14 @@ class Ranking extends StatefulWidget {
 class _RankingState extends State<Ranking> 
 {
   SharedPreferences _prefs;
-  int _playerOneScore = 0;
+  int _playerOneScore;
+  int _playerTwoScore;
+  int _playerThreeScore;
 
   void _incrementPlayerOne()
   {
     setState(() {
       _playerOneScore++;
-      return _playerOneScore;
     });
   }
 
@@ -29,9 +30,40 @@ class _RankingState extends State<Ranking>
   {
     setState(() {
       if (_playerOneScore == 0)
-        return _playerOneScore;
+        return;
       _playerOneScore--;
-      return _playerOneScore;
+    });
+  }
+
+  void _incrementPlayerTwo()
+  {
+    setState(() {
+      _playerTwoScore++;
+    });
+  }
+
+  void _decrementPlayerTwo()
+  {
+    setState(() {
+      if (_playerTwoScore == 0)
+        return;
+      _playerTwoScore--;
+    });
+  }
+
+  void _incrementPlayerThree()
+  {
+    setState(() {
+      _playerThreeScore++;
+    });
+  }
+
+  void _decrementPlayerThree()
+  {
+    setState(() {
+      if (_playerThreeScore == 0)
+        return;
+      _playerThreeScore--;
     });
   }
 
@@ -39,7 +71,11 @@ class _RankingState extends State<Ranking>
   {
     setState(() {
       _playerOneScore = 0;
+      _playerTwoScore = 0;
+      _playerThreeScore = 0;
       _save("_playerOneScore", _playerOneScore);
+      _save("_playerTwoScore", _playerTwoScore);
+      _save("_playerThreeScore", _playerThreeScore);
     });
   }
 
@@ -62,7 +98,9 @@ class _RankingState extends State<Ranking>
 
   Future asyncInitState() async {
     _prefs = await SharedPreferences.getInstance();
-    _playerOneScore = _read("_playerOneScore");
+    _playerOneScore = _read("_playerOneScore") ?? 0;
+    _playerTwoScore = _read("_playerTwoScore") ?? 0;
+    _playerThreeScore = _read("_playerThreeScore") ?? 0;
   }
 
   @override
@@ -126,6 +164,70 @@ class _RankingState extends State<Ranking>
                       onPressed: () {
                         _incrementPlayerOne();
                         _save("_playerOneScore", _playerOneScore);
+                      }
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(13.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Enter name"
+                        ),
+                      )
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () { 
+                        _decrementPlayerTwo();
+                        _save("_playerTwoScore", _playerTwoScore);
+                      }
+                    ),
+                    Text(_playerTwoScore.toString(),
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        _incrementPlayerTwo();
+                        _save("_playerTwoScore", _playerTwoScore);
+                      }
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(13.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Enter name"
+                        ),
+                      )
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () { 
+                        _decrementPlayerThree();
+                        _save("_playerThreeScore", _playerThreeScore);
+                      }
+                    ),
+                    Text(_playerThreeScore.toString(),
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        _incrementPlayerThree();
+                        _save("_playerThreeScore", _playerThreeScore);
                       }
                     )
                   ],
