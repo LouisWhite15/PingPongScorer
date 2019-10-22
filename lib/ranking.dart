@@ -18,6 +18,9 @@ class _RankingState extends State<Ranking>
   int _playerOneScore;
   int _playerTwoScore;
   int _playerThreeScore;
+  final _playerOneNameController = TextEditingController();
+  final _playerTwoNameController = TextEditingController();
+  final _playerThreeNameController = TextEditingController();
 
   void _incrementPlayerOne()
   {
@@ -73,9 +76,15 @@ class _RankingState extends State<Ranking>
       _playerOneScore = 0;
       _playerTwoScore = 0;
       _playerThreeScore = 0;
+      _playerOneNameController.text = "";
+      _playerTwoNameController.text = "";
+      _playerThreeNameController.text = "";
       _save("_playerOneScore", _playerOneScore);
       _save("_playerTwoScore", _playerTwoScore);
       _save("_playerThreeScore", _playerThreeScore);
+      _saveString("_playerOneName", _playerOneNameController.text);
+      _saveString("_playerTwoName", _playerTwoNameController.text);
+      _saveString("_playerThreeName", _playerThreeNameController.text);
     });
   }
 
@@ -87,6 +96,16 @@ class _RankingState extends State<Ranking>
   _save(String key, value)
   {
     _prefs.setInt(key, value);
+  }
+
+  _saveString(String key, value)
+  {
+    _prefs.setString(key, value);
+  }
+
+  String _readString(String key)
+  {
+    return _prefs.getString(key);
   }
 
   @override
@@ -101,6 +120,9 @@ class _RankingState extends State<Ranking>
     _playerOneScore = _read("_playerOneScore") ?? 0;
     _playerTwoScore = _read("_playerTwoScore") ?? 0;
     _playerThreeScore = _read("_playerThreeScore") ?? 0;
+    _playerOneNameController.text = _readString("_playerOneName") ?? "";
+    _playerTwoNameController.text = _readString("_playerTwoName") ?? "";
+    _playerThreeNameController.text = _readString("_playerThreeName") ?? "";
   }
 
   @override
@@ -143,10 +165,12 @@ class _RankingState extends State<Ranking>
                   children: <Widget>[
                     Flexible(
                       child: TextField(
+                        controller: _playerOneNameController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Enter name"
                         ),
+                        onSubmitted: _saveString("_playerOneName", _playerOneNameController.text),
                       )
                     ),
                     IconButton(
@@ -175,10 +199,12 @@ class _RankingState extends State<Ranking>
                   children: <Widget>[
                     Flexible(
                       child: TextField(
+                        controller: _playerTwoNameController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Enter name"
                         ),
+                        onSubmitted: _saveString("_playerTwoName", _playerTwoNameController.text),
                       )
                     ),
                     IconButton(
@@ -207,10 +233,12 @@ class _RankingState extends State<Ranking>
                   children: <Widget>[
                     Flexible(
                       child: TextField(
+                        controller: _playerThreeNameController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Enter name"
                         ),
+                        onSubmitted: _saveString("_playerThreeName", _playerThreeNameController.text),
                       )
                     ),
                     IconButton(
